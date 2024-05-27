@@ -3,7 +3,7 @@ import pytest
 from albumoftheyearapi import AOTY
 
 
-@pytest.fixture
+@pytest.fixture(name="user")
 def user():
     return "doublez"
 

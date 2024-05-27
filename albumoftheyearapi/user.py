@@ -1,16 +1,18 @@
+import json
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
-import json
-
 
 class UserMethods:
     """Methods for gettting a user's profile data"""
 
-
-class UserMethods:
+    # initializing user + attributes
     def __init__(self):
         self.user = ""
         self.url = ""
+        self.req = ""
+        self.user_page = ""
+        self.user_url = ""
+        self.user_page = "" 
 
     def __set_user_page(self, user, url):
         self.user = user
@@ -23,16 +25,16 @@ class UserMethods:
         url = self.user_url + user
         if self.url != url:
             self.__set_user_page(user, url)
-
-        ratings_section = self.user_page.find(
-            href="/user/{}".format(self.user) + "/ratings/"
-        )
+        href = "/user/{}".format(self.user) + "/ratings/"
+        hrefno = "/user/{}".format(self.user)
+        print(hrefno)
+        ratings_section = self.user_page.find(href)
         ratings = ratings_section.find(class_="profileStat").getText()
         return ratings
 
     def user_rating_count_json(self, user):
-        ratings_JSON = {"ratings": self.user_rating_count(user)}
-        return json.dumps(ratings_JSON)
+        ratings_json = {"ratings": self.user_rating_count(user)}
+        return json.dumps(ratings_json)
 
     def user_review_count(self, user):
         url = self.user_url + user
@@ -46,8 +48,8 @@ class UserMethods:
         return reviews
 
     def user_review_count_json(self, user):
-        reviews_JSON = {"reviews": self.user_review_count(user)}
-        return json.dumps(reviews_JSON)
+        reviews_json = {"reviews": self.user_review_count(user)}
+        return json.dumps(reviews_json)
 
     def user_list_count(self, user):
         url = self.user_url + user
@@ -61,8 +63,8 @@ class UserMethods:
         return lists
 
     def user_list_count_json(self, user):
-        lists_JSON = {"lists": self.user_list_count(user)}
-        return json.dumps(lists_JSON)
+        lists_json = {"lists": self.user_list_count(user)}
+        return json.dumps(lists_json)
 
     def user_follower_count(self, user):
         url = self.user_url + user
@@ -76,8 +78,8 @@ class UserMethods:
         return followers
 
     def user_follower_count_json(self, user):
-        followers_JSON = {"followers": self.user_follower_count(user)}
-        return json.dumps(followers_JSON)
+        followers_json = {"followers": self.user_follower_count(user)}
+        return json.dumps(followers_json)
 
     def user_about(self, user):
         url = self.user_url + user
@@ -88,8 +90,8 @@ class UserMethods:
         return about
 
     def user_about_json(self, user):
-        about_JSON = {"about_user": self.user_about(user)}
-        return json.dumps(about_JSON)
+        about_json = {"about_user": self.user_about(user)}
+        return json.dumps(about_json)
 
     def user_rating_distribution(self, user):
         url = self.user_url + user
@@ -122,7 +124,7 @@ class UserMethods:
     def user_rating_distribution_json(self, user):
         user_rating_distribution = self.user_rating_distribution(user)
 
-        user_rating_distribution_JSON = {
+        user_rating_distribution_json = {
             "100": user_rating_distribution[0],
             "90-99": user_rating_distribution[1],
             "80-89": user_rating_distribution[2],
@@ -136,7 +138,7 @@ class UserMethods:
             "0-9": user_rating_distribution[10],
         }
 
-        return json.dumps(user_rating_distribution_JSON)
+        return json.dumps(user_rating_distribution_json)
 
     def user_ratings(self, user):
         url = self.user_url + user
@@ -146,8 +148,8 @@ class UserMethods:
         return self.user_page.find(class_="albumBlock").getText()
 
     def user_ratings_json(self, user):
-        ratings_JSON = {"ratings": self.user_ratings(user)}
-        return json.dumps(ratings_JSON)
+        ratings_json = {"ratings": self.user_ratings(user)}
+        return json.dumps(ratings_json)
 
     def user_perfect_scores(self, user):
         """Returns a list of the users perfect scores"""

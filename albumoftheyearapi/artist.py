@@ -6,9 +6,13 @@ from bs4 import BeautifulSoup
 class ArtistMethods:
     """Initializes all methods that are used to get user data"""
 
+    # initializing artist + attributes
     def __init__(self):
         self.artist = ""
         self.url = ""
+        self.req = ""
+        self.artist_page = ""
+        self.artist_url = ""
 
     def __set_artist_page(self, artist, url):
         print("Getting Artist Info")
@@ -21,7 +25,6 @@ class ArtistMethods:
     def __class_text(self, artist, class_name, url):
         if self.url != url:
             self.__set_user_page(artist, url)
-
         return self.artist_page.find(class_=class_name).getText()
 
     def artist_albums(self, artist):
@@ -40,8 +43,8 @@ class ArtistMethods:
         return artist_albums
 
     def artist_albums_json(self, artist):
-        albums_JSON = {"albums": self.artist_albums(artist)}
-        return json.dumps(albums_JSON)
+        albums_json = {"albums": self.artist_albums(artist)}
+        return json.dumps(albums_json)
 
     def artist_mixtapes(self, artist):
         url = self.artist_url + artist + "/"
@@ -59,8 +62,8 @@ class ArtistMethods:
         return artist_mixtapes
 
     def artist_mixtapes_json(self, artist):
-        mixtapes_JSON = {"mixtapes": self.artist_mixtapes(artist)}
-        return json.dumps(mixtapes_JSON)
+        mixtapes_json = {"mixtapes": self.artist_mixtapes(artist)}
+        return json.dumps(mixtapes_json)
 
     def artist_eps(self, artist):
         url = self.artist_url + artist + "/"
@@ -78,8 +81,8 @@ class ArtistMethods:
         return artist_eps
 
     def artist_eps_json(self, artist):
-        eps_JSON = {"eps": self.artist_eps(artist)}
-        return json.dumps(eps_JSON)
+        eps_json = {"eps": self.artist_eps(artist)}
+        return json.dumps(eps_json)
 
     def artist_singles(self, artist):
         url = self.artist_url + artist + "/"
@@ -96,8 +99,8 @@ class ArtistMethods:
         return artist_singles
 
     def artist_singles_json(self, artist):
-        singles_JSON = {"singles": self.artist_singles(artist)}
-        return json.dumps(singles_JSON)
+        singles_json = {"singles": self.artist_singles(artist)}
+        return json.dumps(singles_json)
 
     def artist_name(self, artist):
         return self.__class_text(
@@ -105,8 +108,8 @@ class ArtistMethods:
         )
 
     def artist_name_json(self, artist):
-        name_JSON = {"name": self.artist_name(artist)}
-        return json.dumps(name_JSON)
+        name_json = {"name": self.artist_name(artist)}
+        return json.dumps(name_json)
 
     def artist_critic_score(self, artist):
         return self.__class_text(
@@ -114,8 +117,8 @@ class ArtistMethods:
         )
 
     def artist_critic_score_json(self, artist):
-        critic_score_JSON = {"critic score": self.artist_critic_score(artist)}
-        return json.dumps(critic_score_JSON)
+        critic_score_json = {"critic score": self.artist_critic_score(artist)}
+        return json.dumps(critic_score_json)
 
     def artist_user_score(self, artist):
         return self.__class_text(
@@ -123,8 +126,8 @@ class ArtistMethods:
         )
 
     def artist_user_score_json(self, artist):
-        user_score_JSON = {"user score": self.artist_user_score(artist)}
-        return json.dumps(user_score_JSON)
+        user_score_json = {"user score": self.artist_user_score(artist)}
+        return json.dumps(user_score_json)
 
     def artist_total_score(self, artist):
         return (
@@ -132,15 +135,15 @@ class ArtistMethods:
         ) / 2
 
     def artist_total_score_json(self, artist):
-        total_score_JSON = {"total score": self.artist_total_score(artist)}
-        return json.dumps(total_score_JSON)
+        total_score_json = {"total score": self.artist_total_score(artist)}
+        return json.dumps(total_score_json)
 
     def artist_follower_count(self, artist):
         return self.__class_text(artist, "followCount", self.artist_url + artist + "/")
 
     def artist_follower_count_json(self, artist):
-        follower_count_JSON = {"follower count": self.artist_follower_count(artist)}
-        return json.dumps(follower_count_JSON)
+        follower_count_json = {"follower count": self.artist_follower_count(artist)}
+        return json.dumps(follower_count_json)
 
     def artist_details(self, artist):
         return self.__class_text(
@@ -148,8 +151,8 @@ class ArtistMethods:
         )
 
     def artist_details_json(self, artist):
-        artist_details_JSON = {"artist details": self.artist_details(artist)}
-        return json.dumps(artist_details_JSON)
+        artist_details_json = {"artist details": self.artist_details(artist)}
+        return json.dumps(artist_details_json)
 
     def artist_top_songs(self, artist):
         return self.__class_text(
@@ -157,8 +160,8 @@ class ArtistMethods:
         )
 
     def artist_top_songs_json(self, artist):
-        artist_top_songs_JSON = {"top songs": self.artist_top_songs(artist)}
-        return json.dumps(artist_top_songs_JSON)
+        artist_top_songs_json = {"top songs": self.artist_top_songs(artist)}
+        return json.dumps(artist_top_songs_json)
 
     def similar_artists(self, artist):
         return self.__class_text(
@@ -166,5 +169,5 @@ class ArtistMethods:
         )
 
     def similar_artists_json(self, artist):
-        similar_artists_JSON = {"similar artists": self.similar_artists(artist)}
-        return json.dumps(similar_artists_JSON)
+        similar_artists_json = {"similar artists": self.similar_artists(artist)}
+        return json.dumps(similar_artists_json)

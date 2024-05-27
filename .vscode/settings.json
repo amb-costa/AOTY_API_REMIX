@@ -1,7 +1,6 @@
 {
+  "pylint.args": [ "--disable=missing-class-docstring", "--disable=missing-function-docstring", "--disable=missing-module-docstring" ],
   "python.testing.pytestArgs": ["."],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true
 }

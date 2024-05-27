@@ -2,19 +2,19 @@ from sqlalchemy import null
 import pytest
 from albumoftheyearapi import AOTY
 
-
-@pytest.fixture
-def artist():
+# establishing Kanye West as test subject
+@pytest.fixture(name="artist")
+def artist_fixture():
     return "183-kanye-west"
 
-
+# initializing AOTY class and pytest client
 @pytest.mark.first
 def test_initialize():
     c = AOTY()
     pytest.client = c
     assert pytest.client != null
 
-
+# testing 
 def test_get_artist_albums(artist):
     artist_albums = pytest.client.artist_albums(artist)
     assert artist_albums != null
@@ -136,20 +136,23 @@ def test_get_similar_artists_json(artist):
 
 
 if __name__ == "__main__":
-    artist = "183-kanye-west"
+    ARTIST = "183-kanye-west"
     AlbumWrapper = AOTY()
 
-    print("Albums\n", AlbumWrapper.artist_albums(artist), "\n")
-    print("Mixtapes\n", AlbumWrapper.artist_mixtapes(artist), "\n")
-    print("Eps\n", AlbumWrapper.artist_eps(artist), "\n")
-    print("Singles\n", AlbumWrapper.artist_singles(artist), "\n")
-    print("Artist Name\n", AlbumWrapper.artist_name(artist), "\n")
-    print("Critic Score\n", AlbumWrapper.artist_critic_score(artist), "\n")
-    print("User Score\n", AlbumWrapper.artist_user_score(artist), "\n")
-    print("Total Score\n", AlbumWrapper.artist_total_score(artist), "\n")
-    print("Follower Count\n", AlbumWrapper.artist_follower_count(artist), "\n")
-    print("Artist Details\n", AlbumWrapper.artist_details(artist), "\n")
-    print("Top Songs\n", AlbumWrapper.artist_top_songs(artist), "\n")
-    print("Similar Artists\n", AlbumWrapper.similar_artists(artist), "\n")
+    ye_data = {
+        "albums" : AlbumWrapper.artist_albums(ARTIST),
+        "mixtapes" : AlbumWrapper.artist_mixtapes(ARTIST),
+        "eps" : AlbumWrapper.artist_eps(ARTIST),
+        "singles" : AlbumWrapper.artist_singles(ARTIST),
+        "artist_name" : AlbumWrapper.artist_name(ARTIST),
+        "critic_score" :  AlbumWrapper.artist_critic_score(ARTIST),
+        "user_score" : AlbumWrapper.artist_user_score(ARTIST),
+        "total_score" : AlbumWrapper.artist_total_score(ARTIST),
+        "follower_count" : AlbumWrapper.artist_follower_count(ARTIST),
+        "artist_details" : AlbumWrapper.artist_details(ARTIST),
+        "top_songs" : AlbumWrapper.artist_top_songs(ARTIST),
+        "similar_artists" : AlbumWrapper.similar_artists(ARTIST)
+    }
 
-    pytest.main
+    print(ye_data["albums"])
+    print("test was successful")
