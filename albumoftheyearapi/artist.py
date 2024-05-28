@@ -1,3 +1,8 @@
+"""
+json : REST API integration
+Request, urlopen : URL handling
+BeautifulSoup : HTML parsing 
+"""
 import json
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
@@ -6,25 +11,33 @@ from bs4 import BeautifulSoup
 class ArtistMethods:
     """Initializes all methods that are used to get user data"""
 
-    # initializing artist + attributes
-    def __init__(self):
+    # () : initializing artist + needed attributes
+    def __init__(self, class_ = None):
+        if class_ is None:
+            raise NotImplementedError()
         self.artist = ""
         self.url = ""
         self.req = ""
         self.artist_page = ""
         self.artist_url = ""
 
+    # () : assigning artist + url, request + decoding to html
     def __set_artist_page(self, artist, url):
-        print("Getting Artist Info")
         self.artist = artist
         self.url = url
         self.req = Request(self.url, headers={"User-Agent": "Mozilla/6.0"})
-        ugly_artist_page = urlopen(self.req).read()
-        self.artist_page = BeautifulSoup(ugly_artist_page, "html.parser")
+        with urlopen(self.req, data = None) as open_req:
+            ugly_page = open_req.read().decode("UTF-8")
+            print(ugly_page)
+        soup_page = BeautifulSoup(ugly_page, "html.parser")
+        with open("output.html", "w", encoding = 'utf-8') as file : 
+            file.write(str(soup_page.prettify()))
+        self.artist_page = soup_page
 
     def __class_text(self, artist, class_name, url):
         if self.url != url:
-            self.__set_user_page(artist, url)
+            self.__set_artist_page(artist, url)
+            print(self.__set_artist_page)
         return self.artist_page.find(class_=class_name).getText()
 
     def artist_albums(self, artist):

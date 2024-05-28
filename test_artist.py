@@ -1,3 +1,9 @@
+"""
+sqlalchemy : REST API integration
+pytest : testing
+AOTY : API module
+"""
+
 from sqlalchemy import null
 import pytest
 from albumoftheyearapi import AOTY
@@ -7,14 +13,14 @@ from albumoftheyearapi import AOTY
 def artist_fixture():
     return "183-kanye-west"
 
-# initializing AOTY class and pytest client
+# initializing AOTY class by establishing client
 @pytest.mark.first
 def test_initialize():
     c = AOTY()
     pytest.client = c
     assert pytest.client != null
 
-# testing 
+# testing for artist_albums(name = "fixture") result
 def test_get_artist_albums(artist):
     artist_albums = pytest.client.artist_albums(artist)
     assert artist_albums != null
@@ -153,6 +159,4 @@ if __name__ == "__main__":
         "top_songs" : AlbumWrapper.artist_top_songs(ARTIST),
         "similar_artists" : AlbumWrapper.similar_artists(ARTIST)
     }
-
-    print(ye_data["albums"])
     print("test was successful")

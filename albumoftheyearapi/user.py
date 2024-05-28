@@ -18,6 +18,9 @@ class UserMethods:
         self.user = user
         self.url = url
         self.req = Request(self.url, headers={"User-Agent": "Mozilla/6.0"})
+        with open(self.req, "r", encoding="utf8") as request:
+            contents = request.read()
+            print(contents)
         ugly_user_page = urlopen(self.req).read()
         self.user_page = BeautifulSoup(ugly_user_page, "html.parser")
 
