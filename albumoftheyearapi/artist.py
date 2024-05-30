@@ -11,6 +11,9 @@ from bs4 import BeautifulSoup
 class ArtistMethods:
     """Initializes all methods that are used to get user data"""
 
+    # comment 4 amber : does api need related artists?
+    # considering deleting it in favor of other features
+
     # () : initializing artist + needed attributes
     def __init__(self, class_ = None):
         if class_ is None:
@@ -28,7 +31,6 @@ class ArtistMethods:
         self.req = Request(self.url, headers={"User-Agent": "Mozilla/6.0"})
         with urlopen(self.req, data = None) as open_req:
             ugly_page = open_req.read().decode("UTF-8")
-            print(ugly_page)
         soup_page = BeautifulSoup(ugly_page, "html.parser")
         with open("output.html", "w", encoding = 'utf-8') as file : 
             file.write(str(soup_page.prettify()))
@@ -37,7 +39,6 @@ class ArtistMethods:
     def __class_text(self, artist, class_name, url):
         if self.url != url:
             self.__set_artist_page(artist, url)
-            print(self.__set_artist_page)
         return self.artist_page.find(class_=class_name).getText()
 
     def artist_albums(self, artist):
