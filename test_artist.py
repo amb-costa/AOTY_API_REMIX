@@ -121,24 +121,24 @@ def test_get_artist_details_json(artist):
     assert artist_details_json != null
 
 
-def test_get_artist_top_songs(artist):
-    artist_top_songs = pytest.client.artist_top_songs(artist)
-    assert artist_top_songs != null
+# def test_get_artist_top_songs(artist):
+#     artist_top_songs = pytest.client.artist_top_songs(artist)
+#     assert artist_top_songs != null
 
 
-def test_get_artist_top_songs_json(artist):
-    artist_top_songs_json = pytest.client.artist_top_songs(artist)
-    assert artist_top_songs_json != null
+# def test_get_artist_top_songs_json(artist):
+#     artist_top_songs_json = pytest.client.artist_top_songs(artist)
+#     assert artist_top_songs_json != null
 
 
-def test_get_similar_artists(artist):
-    similar_artists = pytest.client.similar_artists(artist)
-    assert similar_artists != null
+# def test_get_similar_artists(artist):
+#     similar_artists = pytest.client.similar_artists(artist)
+#     assert similar_artists != null
 
 
-def test_get_similar_artists_json(artist):
-    similar_artists_json = pytest.client.similar_artists_json(artist)
-    assert similar_artists_json != null
+# def test_get_similar_artists_json(artist):
+#     similar_artists_json = pytest.client.similar_artists_json(artist)
+#     assert similar_artists_json != null
 
 
 if __name__ == "__main__":
@@ -156,7 +156,9 @@ if __name__ == "__main__":
         "total_score" : AlbumWrapper.artist_total_score(ARTIST),
         "follower_count" : AlbumWrapper.artist_follower_count(ARTIST),
         "artist_details" : AlbumWrapper.artist_details(ARTIST),
-        "top_songs" : AlbumWrapper.artist_top_songs(ARTIST),
-        "similar_artists" : AlbumWrapper.similar_artists(ARTIST)
+        # "top_songs" : AlbumWrapper.artist_top_songs(ARTIST),
+        # "similar_artists" : AlbumWrapper.similar_artists(ARTIST)
     }
+
+    print (ye_data)
     print("test was successful")

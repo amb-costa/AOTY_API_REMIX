@@ -13,6 +13,10 @@ class ArtistMethods:
 
     # comment 4 amber : does api need related artists?
     # considering deleting it in favor of other features
+    # only artist features that should be implemented : albums, mixtapes, ep, singles
+    # plus every result should have related data like critics + user score
+    # should artist have score? keep code just in case
+    # should artist show followers?
 
     # () : initializing artist + needed attributes
     def __init__(self, class_ = None):
@@ -168,20 +172,20 @@ class ArtistMethods:
         artist_details_json = {"artist details": self.artist_details(artist)}
         return json.dumps(artist_details_json)
 
-    def artist_top_songs(self, artist):
-        return self.__class_text(
-            artist, "trackListTable", self.artist_url + artist + "/"
-        )
+    # def artist_top_songs(self, artist):
+    #     return self.__class_text(
+    #         artist, "trackListTable", self.artist_url + artist + "/"
+    #     )
 
-    def artist_top_songs_json(self, artist):
-        artist_top_songs_json = {"top songs": self.artist_top_songs(artist)}
-        return json.dumps(artist_top_songs_json)
+    # def artist_top_songs_json(self, artist):
+    #     artist_top_songs_json = {"top songs": self.artist_top_songs(artist)}
+    #     return json.dumps(artist_top_songs_json)
 
-    def similar_artists(self, artist):
-        return self.__class_text(
-            artist, "section relatedArtists", self.artist_url + artist + "/"
-        )
+    # def similar_artists(self, artist):
+    #     return self.__class_text(
+    #         artist, "section relatedArtists", self.artist_url + artist + "/"
+    #     )
 
-    def similar_artists_json(self, artist):
-        similar_artists_json = {"similar artists": self.similar_artists(artist)}
-        return json.dumps(similar_artists_json)
+    # def similar_artists_json(self, artist):
+    #     similar_artists_json = {"similar artists": self.similar_artists(artist)}
+    #     return json.dumps(similar_artists_json)
