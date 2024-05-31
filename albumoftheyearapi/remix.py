@@ -41,22 +41,31 @@ class Remix:
         # then it's possible to perform queries and searches
         # every piece of data is contained in a "albumBlock" class div
         # find_all is a bs4 tool, not native to python!
+        # for every lp iteration -> title, year, rating are retrieved
+        # then ratings should be retrieved to get proper ratings
         with urlopen(album_request, data = None) as open_album:
             ugly_page = open_album.read().decode("UTF-8")
             better_page = BeautifulSoup(ugly_page, "html.parser")
+            project_block = better_page.find_all(attrs={"class":"albumBlock"})
             title = better_page.find_all(attrs={"class":"albumTitle"})
             year = better_page.find_all(attrs={"class":"type"})
             rates = better_page.find_all(attrs={"class":"rating"})
             typerate = better_page.find_all(attrs={"class":"ratingText"})
-            actualrates = typerate[::2]
-            print(len(title)==len(year))
-            print(len(rates))
-            print(len(actualrates))
+            # every two "ratingtext" corresponds at the number of ratings
+            # this is useless for API purposes but can be overriden here 
+            # ratings should be worked on, since not all records will have both critics
+            print(project_block[4])
+
+
+
+        
+        el_p = len(title)
+        rating = len(rates)
 
         remix_albums = []
-        for i in range(0,len(title)):
+        for i in range(0,el_p):
             album = title[i].getText()
             date = year[i].getText()
-            remix_albums.append(album)
+            remix_albums.append({"album_title" : album, "release_year" : date})
 
         return remix_albums
