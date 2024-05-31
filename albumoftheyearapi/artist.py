@@ -51,6 +51,7 @@ class ArtistMethods:
             self.__set_artist_page(artist, url)
 
         albums = self.artist_page.find_all(attrs={"data-type": "lp"})
+        print(albums)
 
         artist_albums = []
         for x in albums:

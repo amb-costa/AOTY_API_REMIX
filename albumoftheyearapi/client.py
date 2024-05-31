@@ -2,9 +2,10 @@
 
 from albumoftheyearapi.user import UserMethods
 from albumoftheyearapi.artist import ArtistMethods
+from albumoftheyearapi.remix import Remix
 
 
-class AOTY(UserMethods, ArtistMethods):
+class AOTY(UserMethods, ArtistMethods, Remix):
     """A light weight python library that acts as an API for https://www.albumoftheyear.org"""
 
     def __init__(self):
