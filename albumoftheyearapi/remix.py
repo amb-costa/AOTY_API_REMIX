@@ -46,26 +46,23 @@ class Remix:
         with urlopen(album_request, data = None) as open_album:
             ugly_page = open_album.read().decode("UTF-8")
             better_page = BeautifulSoup(ugly_page, "html.parser")
+
+            remix_albums = []
             project_block = better_page.find_all(attrs={"class":"albumBlock"})
-            title = better_page.find_all(attrs={"class":"albumTitle"})
-            year = better_page.find_all(attrs={"class":"type"})
-            rates = better_page.find_all(attrs={"class":"rating"})
-            typerate = better_page.find_all(attrs={"class":"ratingText"})
+            for child in project_block:
+                title = child.find(attrs={"class":"albumTitle"})
+                year = child.find(attrs={"class":"type"})
+                rates = child.find(attrs={"class":"ratingRow"})
+                for score in rates:
+                    score_number = score.find(attrs={"class" : "rating"})
+                    score_writer = score.find(attrs={"class" : "ratingText"})
+                    score_tuple = {"writer" : score_writer.getText(), "score" : score_number.getText()}
+                    print(score_tuple)
+                typerate = child.find_all(attrs={"class":"ratingText"})
+                remix_albums.append({"album_title" : title, "release_year" : year})
+
             # every two "ratingtext" corresponds at the number of ratings
             # this is useless for API purposes but can be overriden here 
             # ratings should be worked on, since not all records will have both critics
-            print(project_block[4])
-
-
-
-        
-        el_p = len(title)
-        rating = len(rates)
-
-        remix_albums = []
-        for i in range(0,el_p):
-            album = title[i].getText()
-            date = year[i].getText()
-            remix_albums.append({"album_title" : album, "release_year" : date})
-
+            
         return remix_albums
